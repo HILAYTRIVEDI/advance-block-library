@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
+Contributors: @smit08 ,@hilayt24 .
 Donate link: advance-block-library
 Tags: comments, spam
 Requires at least: 3.0.1
