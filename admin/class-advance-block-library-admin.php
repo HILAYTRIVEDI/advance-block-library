@@ -52,7 +52,12 @@ class Advance_Block_Library_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+		//Add the assets of the active blocks.
+		add_action( 'init', array( $this, 'abl_load_admin_files' ) );
+
+		//Add the custom admin page to the site.
 		add_action( 'admin_menu',  array( $this, 'abl_page_registraion' ) );
+		
 	}
 
 	/**
@@ -61,18 +66,6 @@ class Advance_Block_Library_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Advance_Block_Library_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Advance_Block_Library_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/advance-block-library-admin.css', array(), $this->version, 'all' );
 
@@ -85,20 +78,46 @@ class Advance_Block_Library_Admin {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Advance_Block_Library_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Advance_Block_Library_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/advance-block-library-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function abl_load_admin_files() {
+	
+		//Get the array of the blocks.
+		$blocks 		= abl_blocks_list();
+
+		//Get the active blocks.
+		$active_blocks 	= maybe_unserialize( get_option('abl_active_blocks ') );
+	
+		if( ! is_array( $active_blocks ) ){
+			$active_blocks = array();
+		}
+		
+		$block_count = 1;
+
+		foreach( $blocks as $block ){ 
+			
+			// if( in_array( $block['slug'], $active_blocks ) ){
+				
+				wp_register_script( 'abl_advance_block_'.$block_count,
+					plugin_dir_url(__DIR__) . 'blocks/'.$block['dest'].'/block.build.js',
+					array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-components' ), false, NULL
+				);
+	
+				wp_enqueue_style(
+					'abl_advance_block_'.$block_count,
+					plugin_dir_url(__DIR__) . 'blocks/'.$block['dest'].'/css/editor.css'
+				);			
+
+				register_block_type( $block['slug'].$block_count, array(
+					'editor_script' => 'abl_advance_block_'.$block_count,
+					'editor_style'  => 'abl_advance_block_'.$block_count
+				) );		
+				
+			// }
+			$block_count++;
+		}
 	}
 
 	/**
@@ -107,93 +126,44 @@ class Advance_Block_Library_Admin {
 	public function abl_page_registraion(){
 		add_menu_page( 'Liberary Settings Page', 'Liberary Settings ', 'manage_options', 'abl_admin_setting', array( $this, 'abl_admin_setting_callback' ) );
 	}
+
+	/**
+	 * Contains the html of the menu page
+	 * 
+	 * @return html $html returns the html structure of the page.
+	 */
 	public function abl_admin_setting_callback(){ 	
 	
+		//Get the array of the blocks.
 		$blocks 		= abl_blocks_list();
 
+		// Get the plugin meta data.
+		$plugin_details 	= get_plugin_data(plugin_dir_path( __DIR__ ) . 'advance-block-library.php');
+
+		//Get the active blocks.
 		$active_blocks 	= maybe_unserialize( get_option('abl_active_blocks ') );
 		if( ! is_array( $active_blocks ) ){
 			$active_blocks = array();
-		} ?>
-		<div class="md_welcome_page_heading">
-		<div class="md_welcome_page_heading_img">
-			<img src="<?php echo ADVANCE_BLOCK_LIBRARY_URI.'admin/images/mdinc-logo.svg'?>" alt="Logo">
-		</div>
-		<div class="md_welcome_page_heading_desc">
-			<div>
-				<h1><?php echo $plugin_data['Name']?> Plugin</h1>
-				<h3>Free Version: <?php echo $plugin_data['Version']?></h3>
-			</div>
-			<div class="md_welcome_page_review">
-				<a class="md_welcome_page_review_img" href="https://www.multidots.com/">
-					<img src="<?php echo ADVANCE_BLOCK_LIBRARY_URI.'admin/images/like-svgrepo-com.svg'?>" alt="Review Logo">
-					<div>FeedBack</div>
-				</a>
-				<a class="md_welcome_page_review_img" href="https://www.multidots.com/">
-					<img src="<?php echo ADVANCE_BLOCK_LIBRARY_URI.'admin/images/support-technology-svgrepo-com.svg'?>" alt="Review Logo">
-					<div>Support</div>
-				</a>
+		} 
+
+		ob_start();
+
+		?>
+
+		<div class="abl-page-wrapper">
+			<div class="container">
+				<div class="abl-heading">
+					<h1 class="abl-heading__title">
+						<?php echo esc_html__($plugin_details['Name'],'advance-block-library')?>
+					</h1>
+					<h3 class="abl-heading__version">
+
+					</h3>
+				</div>
 			</div>
 		</div>
-	</div><section class="md_settings_page">
-		<div class="md_settings_page_heading">
-			<h2>MD Essential Blocks</h2>
-            <div class="md_total_Active_blocks">
-                Total Active Blocks:  <span><?php echo count($active_blocks)?></span>
-            </div>
-            <div class="md_total_blocks">
-                Total  Blocks: <span><?php echo count($blocks)?></span>
-            </div>
-			<div class="md_settings_page_heading_all button" id="md_settings_page_heading_all_btn">
-			<?php 
-				if (empty($active_blocks)) {
-					echo $btnall = __( 'Activate All', 'md-blocks' );
-				} else {
-					echo $btnall = __( 'Deactivate All', 'md-blocks' );
-				}
-			?>
-			</div>
-		</div>
-			<div class="md_settings_page_list">
-                <div class="md_settings_page_list_main_heading">
-                    <div class="md_settings_page_list_main_heading_item">
-                        Block Name
-                    </div>
-                    <div class="md_settings_page_list_main_heading_item">
-                        Parent Class
-                    </div>
-                    <div class="md_settings_page_list_main_heading_item">
-                        Action
-                    </div>
-                </div>
-				<?php 
-						foreach($blocks as $block){ 
-							?>
-
-						<div class="md_settings_page_list_item">
-							<div class="md_settings_page_list_item_title">
-									<?php echo esc_html_e($block['name'],'md-blocks')?>
-							</div>
-                            <div class="md_settings_page_list_item_parent_class">
-							        <?php echo esc_html_e($block['parent-class'],'md-blocks')?>
-							</div>
-							<div class="md_btn">
-								<button class="button md_toggle_btn" data-block-slug="<?php echo esc_attr( $block['slug'] )?>">
-									<?php 
-
-										if ( ! in_array($block['slug'] ,$active_blocks)) {
-											echo $btntitle = __( 'Activate', 'md-blocks' );
-										} else {
-											echo $btntitle = __( 'Deactivate', 'md-blocks' );
-										}
-
-									?>
-								</button>
-							</div>
-						</div>
-					<?php	} ?>
-			</div>
-	</section>
-
-	<?php }
+	<?php 
+		$html = ob_get_contents();
+		return $html;
+	}
 }

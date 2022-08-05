@@ -52,6 +52,10 @@ class Advance_Block_Library_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+
+		//Add the assets of the active blocks.
+		add_action( 'init', array( $this, 'abl_load_admin_files' ) );
+
 	}
 
 	/**
@@ -60,18 +64,6 @@ class Advance_Block_Library_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Advance_Block_Library_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Advance_Block_Library_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/advance-block-library-public.css', array(), $this->version, 'all' );
 
@@ -84,20 +76,29 @@ class Advance_Block_Library_Public {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Advance_Block_Library_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Advance_Block_Library_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/advance-block-library-public.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function abl_load_admin_files() {
+
+		//Get the array of the blocks.
+		$blocks 		= abl_blocks_list();
+
+		//Get the active blocks.
+		$active_blocks 	= maybe_unserialize( get_option('abl_active_blocks ') );
+
+		if( ! is_array( $active_blocks ) ){
+			$active_blocks = array();
+		}
+	
+		foreach( $blocks as $block ){ 
+			// if( in_array( $block['slug'], $active_blocks) ){
+				wp_enqueue_style( 'abl_advance_block_'.$block['dest'], plugin_dir_url(__DIR__)  . 'blocks/'.$block['dest']. '/css/front.css' );
+				wp_enqueue_script('abl_advance_block_'.$block['dest'], plugin_dir_url(__DIR__) . 'blocks/'.$block['dest'].'/block.build.js', array( 'wp-blocks', 'wp-i18n', 'wp-element','wp-editor','wp-data','wp-api' ) );
+			// }
+			
+		}
 	}
 
 }

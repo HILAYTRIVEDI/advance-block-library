@@ -2,3 +2,19 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+.abl-page-wrapper .container {
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20;
+}
+
+.abl-heading {
+    text-align: center;
+    padding: 30px 40px;
+}
+
+.abl-heading__title {
+    text-transform: capitalize;
+}
