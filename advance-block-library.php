@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Advance block library
  * Plugin URI:        advance-block-library
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       This is the plugin that has advance static and dynamic blocks which can customize as per the need.
  * Version:           1.0.0
  * Author:            Smit and Hilay
  * Author URI:        advance-block-library
