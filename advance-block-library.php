@@ -40,7 +40,7 @@ define( 'ADVANCE_BLOCK_LIBRARY_VERSION', '1.0.0' );
 /**
  * Define the global path of the plugin.
  */
-define('ADVANCE_BLOCK_LIBRARY_URI',plugin_dir_url( __FILE__ ));
+define('ADVANCE_BLOCK_LIBRARY_URI',plugin_dir_path( __FILE__ ));
 
 /**
  * Contains the array of all the blocks.
