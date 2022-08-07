@@ -9,13 +9,13 @@
 function abl_blocks_list(){
     
     $blocks = array(
-        'abl/our-sponsors'      => array(
-            'slug'				=> 'abl/our-sponsors',
-            'dest'				=> '/static-blocks/our-sponsors',
+        'abl/timeline-block'      => array(
+            'slug'				=> 'abl/timeline-block',
+            'dest'				=> '/static-blocks/timeline-block',
             'dynamic'           =>  false,
-            'parent-class'      => 'abl_our_sponsor_block',
-            'name'  			=> __( 'Our Sponsors', 'advance-block-library' ),
-            'desc'  			=> __( 'Display selected images as sponsors slide', 'advance-block-library' )        
+            'parent-class'      => 'abl_timeline_block',
+            'name'  			=> __( 'Timeline Block', 'advance-block-library' ),
+            'desc'  			=> __( 'Enter details and it will display in timeline', 'advance-block-library' )        
         )
     );
     

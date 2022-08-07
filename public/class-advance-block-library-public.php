@@ -94,8 +94,8 @@ class Advance_Block_Library_Public {
 	
 		foreach( $blocks as $block ){ 
 			if( in_array( $block['slug'], $active_blocks) ){
-				wp_enqueue_style( 'abl_advance_block_'.$block['dest'], plugin_dir_url(__DIR__)  . 'blocks/'.$block['dest']. '/css/front.css' );
-				wp_enqueue_script('abl_advance_block_'.$block['dest'], plugin_dir_url(__DIR__) . 'blocks/'.$block['dest'].'/block.build.js', array( 'wp-blocks', 'wp-i18n', 'wp-element','wp-editor','wp-data','wp-api' ) );
+				wp_enqueue_style( 'abl_advance_block_'.$block['dest'], plugin_dir_url(__DIR__)  . 'blocks/'.$block['dest']. '/front.css' );
+				wp_enqueue_script('abl_advance_block_'.$block['dest'], plugin_dir_url(__DIR__) . 'blocks/'.$block['dest'].'/blockbuild.js', array( 'wp-blocks', 'wp-i18n', 'wp-element','wp-editor','wp-data','wp-api' ) );
 			}
 			
 		}
