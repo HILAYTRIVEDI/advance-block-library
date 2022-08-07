@@ -101,7 +101,7 @@ class Advance_Block_Library_Admin {
 			// if( in_array( $block['slug'], $active_blocks ) ){
 				
 				wp_register_script( 'abl_advance_block_'.$block_count,
-					plugin_dir_url(__DIR__) . 'blocks/'.$block['dest'].'/block.build.js',
+					plugin_dir_url(__DIR__) . 'blocks/'.$block['dest'].'/blockbuild.js',
 					array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-components' ), false, NULL
 				);
 	
