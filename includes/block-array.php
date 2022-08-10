@@ -9,13 +9,13 @@
 function abl_blocks_list(){
     
     $blocks = array(
-        'abl/timeline-block'      => array(
-            'slug'				=> 'abl/timeline-block',
-            'dest'				=> '/static-blocks/timeline-block',
+        'abl/team-members-block'      => array(
+            'slug'				=> 'abl/team-members-block',
+            'dest'				=> '/static-blocks/team-members-block',
             'dynamic'           =>  false,
-            'parent-class'      => 'abl_timeline_block',
-            'name'  			=> __( 'Timeline Block', 'advance-block-library' ),
-            'desc'  			=> __( 'Enter details and it will display in timeline', 'advance-block-library' )        
+            'parent-class'      => 'abl_team_members_block',
+            'name'  			=> __( 'Team Members Block', 'advance-block-library' ),
+            'desc'  			=> __( 'Add team members details', 'advance-block-library' )        
         )
     );
     
