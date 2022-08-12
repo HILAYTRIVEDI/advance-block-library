@@ -125,7 +125,7 @@ class Advance_Block_Library_Admin {
 
 				wp_enqueue_style(
 					'abl_advance_block_' . $block_count,
-					plugin_dir_url( __DIR__ ) . 'blocks/' . $block['dest'] . '/css/editor.css',
+					plugin_dir_url( __DIR__ ) . 'blocks/' . $block['dest'] . '/editor.css',
 					$this->version,
 					'all'
 				);

@@ -91,6 +91,8 @@ class Advance_Block_Library_Public {
 		if( ! is_array( $active_blocks ) ){
 			$active_blocks = array();
 		}
+
+		wp_enqueue_style( 'abl-fontawesome-style', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', array() );
 	
 		foreach( $blocks as $block ){ 
 			if( in_array( $block['slug'], $active_blocks) ){
