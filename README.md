@@ -12,7 +12,7 @@ It is a lightweight plugin that contains powerful blocks from static to dynamic.
 ### :electric_plug: How to use 
 1. ##### Clone this repo in your site plugin folder.
 	```sh
-	git clone https://github.com/multidots/prj-md-essential-blocks
+	git clone https://github.com/HILAYTRIVEDI/advance-block-library.git
 	 ```
 
 2. Go the "Plugins" tab in the dashboard  and activate the plugin.
