@@ -1,6 +1,6 @@
 # Advance Block Library
 
-It is a lightweight plugin that contains powerful blocks from static to dynamic. The plugin is VIP compatible, so it will also be useful for your VIP sites.
+It is a lightweight plugin that contains powerful blocks from static to dynamic. The plugin is VIP compatible, so it will be useful for your VIP sites also. Every block is highly customizable and can be used as per the user's need.
 
 ## Features
 - Allows the user to include and exclude the desired blocks so that the unwanted scripts and styles will not load on the site.
@@ -15,8 +15,13 @@ It is a lightweight plugin that contains powerful blocks from static to dynamic.
 	git clone https://github.com/multidots/prj-md-essential-blocks
 	 ```
 
-2. Go the Plugins tab in the dashboard  and activate the plugin.
-<img src="https://www.awesomescreenshot.com/image/31463695?key=0c5435b5be070db7d3c9beb44b4e0dab" height="300" width"500">
+2. Go the "Plugins" tab in the dashboard  and activate the plugin.
+
+3. After activating the plugin there will be a "Library settings" menu page for including and excluding the blocks in the site.
+
+4. All the blocks are included by default but if you want to exclude some blocks you can.
+
+5. Now you are ready to go for building a amaezing site.
 
 
 ## How to Contribute 
