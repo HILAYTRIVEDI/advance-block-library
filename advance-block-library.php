@@ -48,6 +48,21 @@ define('ADVANCE_BLOCK_LIBRARY_URI',plugin_dir_path( __FILE__ ));
 require_once plugin_dir_path( __FILE__ ) . "includes/block-array.php";
 
 /**
+ * Contains the array of all the blocks.
+ */
+require_once plugin_dir_path( __FILE__ ) . "includes/custom-end-points.php";
+
+$blocks = abl_blocks_list();
+
+/**Dynamic block file inclusion */
+foreach($blocks as $block) {
+	if($block['dynamic']){
+		require_once plugin_dir_path( __FILE__ ) . "blocks/".$block['dest']."/index.php";
+	}
+}
+
+
+/**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-advance-block-library-activator.php
  */
