@@ -1,4 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const path = require('path');
+
 
 const externals = {
     wp: "wp",
@@ -12,13 +15,12 @@ const mode = isProduction ? "production" : "development";
 module.exports = {
     mode,
     entry: {
-        front: ["./css/style.scss"],
-        editor: ["./css/editor.scss"],
+        front: ["./src/scss/style.scss"],
+        editor: ["./src/scss/editor.scss"],
         blockbuild: ["./block.js"]
     },
     output: {
-        path: __dirname,
-        filename: "[name].js",
+        path: path.resolve(__dirname, "build"),
     },
     plugins: [
         new MiniCssExtractPlugin({
@@ -37,5 +39,13 @@ module.exports = {
                 use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
             }
         ]
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new CssMinimizerPlugin({
+                test: /\.css/i,
+            }),
+        ],
     },
 };
