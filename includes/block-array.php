@@ -13,9 +13,15 @@ function abl_blocks_list(){
             'slug'				=> 'abl/team-members-block',
             'dest'				=> '/static-blocks/team-members-block',
             'dynamic'           =>  false,
-            'parent-class'      => 'abl_team_members_block',
             'name'  			=> __( 'Team Members Block', 'advance-block-library' ),
             'desc'  			=> __( 'Add team members details', 'advance-block-library' )        
+        ),
+        'abl/hero-banner'      => array(
+            'slug'				=> 'abl/hero-banner',
+            'dest'				=> '/static-blocks/hero-banner',
+            'dynamic'           =>  false,
+            'name'  			=> __( 'Hero Banner Block', 'advance-block-library' ),
+            'desc'  			=> __('An advance block to create your banner area.', 'advance-block-library' )        
         )
     );
     
