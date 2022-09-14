@@ -59,6 +59,10 @@ function blogs_listing_dynamic_block() {
                     'type' => 'string',
                     'default' => '#000'
                 ),
+                'selectedLayouts' => array(
+                    'type' => 'string',
+                    'default' => null
+                ),
             ),
             'render_callback' => 'blogs_listing_dynamic_block_callback',
         )
@@ -69,6 +73,7 @@ function blogs_listing_dynamic_block() {
         $post_status_values = ! empty( $attributes['selectedPostStatus'] ) ? $attributes['selectedPostStatus'] : "any";
         $post_orderby = ! empty( $attributes['selectedOrderBy'] ) ? $attributes['selectedOrderBy'] : "title";
         $post_order = ! empty( $attributes['selectedOrder'] ) ? $attributes['selectedOrder'] : "DESC";
+        $layout = ! empty( $attributes['selectedLayouts'] ) ? $attributes['selectedLayouts'] : "grid-layout";
         //echo $post_status_values;
         $args = array(
             'posts_per_page'   => -1,
@@ -82,7 +87,7 @@ function blogs_listing_dynamic_block() {
         ?>
         <div class="blog-listing-section">
             <div class="container">
-                <div class="post-lists">
+                <div class="<?php echo $layout; ?>">
                     <?php
                         if( $the_query->have_posts()){
 
@@ -94,7 +99,11 @@ function blogs_listing_dynamic_block() {
                                     <?php if ($attributes['displayFeatureImg']) { ?> 
                                         <div class="post-wrapper__image">
                                             <a href="<?php echo get_permalink(); ?>">
-                                                <?php echo get_the_post_thumbnail(); ?>
+                                            <?php if (empty(get_the_post_thumbnail())) { ?>
+                                                <img src="/wp-content/plugins/advance-block-library/blocks/dynamic-blocks/blogs-listing-block/src/images/placeholder-image.jpeg" />
+                                            <?php } else { 
+                                                echo get_the_post_thumbnail(); 
+                                            } ?>
                                             </a>
                                         </div>
                                     <?php } ?>

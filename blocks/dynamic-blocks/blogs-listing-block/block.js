@@ -38,9 +38,8 @@ class blogListingBlock extends Component {
     }
     render() {
         const { attributes, setAttributes } = this.props;
-		const { selectedPostType, selectedPostStatus, selectedOrderBy, selectedOrder, displayFeatureImg, displayTitle, displayDesc, displayLink, titleColor, descColor, linkColor } = attributes;
+		const { selectedPostType, selectedPostStatus, selectedOrderBy, selectedOrder, displayFeatureImg, displayTitle, displayDesc, displayLink, titleColor, descColor, linkColor, selectedLayouts } = attributes;
 		const { postList } = this.state;
-    
         return (
             <Fragment>
 				<InspectorControls>
@@ -120,6 +119,19 @@ class blogListingBlock extends Component {
 							}}
 						/>
 					</PanelBody>
+					<PanelBody title="Layout Settings" initialOpen={false}>
+						<SelectControl
+							label={__('Select Layouts')}
+							value={selectedLayouts}
+							options={[
+								{ label: 'Grid', value: 'grid-layout' },
+								{ label: 'List', value: 'list-layout' },
+							]}
+							onChange={ ( value ) => {
+							setAttributes( { selectedLayouts: value } );
+							} }
+						/>
+					</PanelBody>
 					<PanelBody title="Display Settings" initialOpen={false}>
 						<ToggleControl
 							label={__('Display Feature Image')}
@@ -157,6 +169,7 @@ class blogListingBlock extends Component {
 						titleColor: titleColor,
 						descColor: descColor,
 						linkColor: linkColor,
+						selectedLayouts: selectedLayouts,
 					}}
                 />
             </Fragment>
